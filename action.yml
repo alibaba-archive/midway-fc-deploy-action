@@ -2,6 +2,8 @@
 
 name: midway-fc-deploy-action
 
+description: Midway Serverless Deploy Action For Aliyun FC
+
 # Controls when the action will run. 
 on:
   push:
