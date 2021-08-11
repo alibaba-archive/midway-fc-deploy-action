@@ -20,9 +20,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: midway-fc-deploy-action
-              uses: midwayjs/midway-fc-deploy-action@v1
-              with:
-                id: ${{ secrets.SERVERLESS_DEPLOY_ID }}
-                ak: ${{ secrets.SERVERLESS_DEPLOY_AK }}
-                secret: ${{ secrets.SERVERLESS_DEPLOY_SECRET }}
+        uses: midwayjs/midway-fc-deploy-action@v1
+        with:
+          id: ${{ secrets.SERVERLESS_DEPLOY_ID }}
+          ak: ${{ secrets.SERVERLESS_DEPLOY_AK }}
+          secret: ${{ secrets.SERVERLESS_DEPLOY_SECRET }}
 ```
