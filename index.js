@@ -3,8 +3,8 @@ const { readFileSync } = require('fs');
 const { join } = require('path');
 
 ;(async () => {
-
-  const cwd = process.env.GITHUB_WORKSPACE;
+  console.log('ENV', JSON.stringify(process.env, null, 2));
+  const cwd = join(process.env.GITHUB_WORKSPACE, '../');
   console.log('Step 1: Install Deps');
   const lsRes = execSync(`cd ${cwd}; ls -al`);
   console.log(lsRes.toString());
