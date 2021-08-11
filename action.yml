@@ -1,39 +1,29 @@
-# This is a basic workflow to help you get started with Actions
-
 name: midway-fc-deploy-action
 
 description: Midway Serverless Deploy Action For Aliyun FC
 
-# Controls when the action will run. 
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v2
+      with:
+        path: ${{ env.SERVERLESS_DEPLOY_PATH || secrets.SERVERLESS_DEPLOY_PATH || '' }}
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '12.x'
+        registry-url: 'https://registry.npmjs.org'
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    - name: install deps
+      run: npm i
 
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          path: ${{ env.SERVERLESS_DEPLOY_PATH || secrets.SERVERLESS_DEPLOY_PATH || '' }}
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '12.x'
-          registry-url: 'https://registry.npmjs.org'
+    - name: install tools
+      run: npm i @midwayjs/cli
 
-      - name: install deps
-        run: npm i
-
-      - name: install tools
-        run: npm i @midwayjs/cli
-
-      - name: deploy
-        run: npm run deploy || npx mw deploy --yes -V
-        env:
-          SERVERLESS_DEPLOY_ID: ${{ env.SERVERLESS_DEPLOY_PATH || secrets.SERVERLESS_DEPLOY_ID }}
-          SERVERLESS_DEPLOY_AK: ${{ env.SERVERLESS_DEPLOY_AK || secrets.SERVERLESS_DEPLOY_AK }}
-          SERVERLESS_DEPLOY_SECRET: ${{ secrets.SERVERLESS_DEPLOY_SECRET }}
-          SERVERLESS_DEPLOY_ENDPOINT: ${{ env.SERVERLESS_DEPLOY_ENDPOINT || secrets.SERVERLESS_DEPLOY_ENDPOINT }}
-          SERVERLESS_DEPLOY_TIMEOUT: ${{ env.SERVERLESS_DEPLOY_TIMEOUT || secrets.SERVERLESS_DEPLOY_TIMEOUT }}
+    - name: deploy
+      run: npm run deploy || npx mw deploy --yes -V
+      env:
+        SERVERLESS_DEPLOY_ID: ${{ env.SERVERLESS_DEPLOY_PATH || secrets.SERVERLESS_DEPLOY_ID }}
+        SERVERLESS_DEPLOY_AK: ${{ env.SERVERLESS_DEPLOY_AK || secrets.SERVERLESS_DEPLOY_AK }}
+        SERVERLESS_DEPLOY_SECRET: ${{ secrets.SERVERLESS_DEPLOY_SECRET }}
+        SERVERLESS_DEPLOY_ENDPOINT: ${{ env.SERVERLESS_DEPLOY_ENDPOINT || secrets.SERVERLESS_DEPLOY_ENDPOINT }}
+        SERVERLESS_DEPLOY_TIMEOUT: ${{ env.SERVERLESS_DEPLOY_TIMEOUT || secrets.SERVERLESS_DEPLOY_TIMEOUT }}
