@@ -6,6 +6,7 @@ const { join } = require('path');
 
   const cwd = process.env.GITHUB_WORKSPACE;
   console.log('Step 1: Install Deps');
+  execSync(`cd ${cwd}; ls -al`);
   execSync(`cd ${cwd}; npm i`);
 
   console.log('Step 2: Install Deploy Tools');
