@@ -2,28 +2,45 @@ name: midway-fc-deploy-action
 
 description: Midway Serverless Deploy Action For Aliyun FC
 
+inputs:
+  id: 
+    description: 'FC Account ID'
+    required: true
+  ak: 
+    description: 'FC Account Access Key'
+    required: true
+  secret: 
+    description: 'FC Account Access Secret'
+    required: true
+  endpoint: 
+    description: 'FC Endpoint'
+    default: 'cn-hangzhou'
+  timeout: 
+    description: 'Deploy Timeout'
+    default: '1000'
+
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v2
-      with:
-        path: ${{ env.SERVERLESS_DEPLOY_PATH || secrets.SERVERLESS_DEPLOY_PATH || '' }}
     - uses: actions/setup-node@v2
       with:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
 
-    - name: install deps
+    - id: install deps
+      shell: bash
       run: npm i
 
-    - name: install tools
+    - id: install tools
+      shell: bash
       run: npm i @midwayjs/cli
 
-    - name: deploy
+    - id: deploy
+      shell: bash
       run: npm run deploy || npx mw deploy --yes -V
       env:
-        SERVERLESS_DEPLOY_ID: ${{ env.SERVERLESS_DEPLOY_PATH || secrets.SERVERLESS_DEPLOY_ID }}
-        SERVERLESS_DEPLOY_AK: ${{ env.SERVERLESS_DEPLOY_AK || secrets.SERVERLESS_DEPLOY_AK }}
-        SERVERLESS_DEPLOY_SECRET: ${{ secrets.SERVERLESS_DEPLOY_SECRET }}
-        SERVERLESS_DEPLOY_ENDPOINT: ${{ env.SERVERLESS_DEPLOY_ENDPOINT || secrets.SERVERLESS_DEPLOY_ENDPOINT }}
-        SERVERLESS_DEPLOY_TIMEOUT: ${{ env.SERVERLESS_DEPLOY_TIMEOUT || secrets.SERVERLESS_DEPLOY_TIMEOUT }}
+        SERVERLESS_DEPLOY_ID: ${{ inputs.id }}
+        SERVERLESS_DEPLOY_AK: ${{ inputs.ak }}
+        SERVERLESS_DEPLOY_SECRET: ${{ inputs.secret }}
+        SERVERLESS_DEPLOY_ENDPOINT: ${{ inputs.endpoint }}
+        SERVERLESS_DEPLOY_TIMEOUT: ${{ inputs.timeout }}
