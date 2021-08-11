@@ -11,8 +11,8 @@ const { exec } = require('@actions/exec');
   await exec('npm i @midwayjs/cli');
 
   let pkgJson = {};
-  let cmd = `${join(process.cwd(), 'node_modules/@midwayjs/cli/bin/midway-bin.js')} deploy`;
-  let args = ['--yes', '-V'];
+  let cmd = `node -p 'require("${join(process.cwd(), 'node_modules/@midwayjs/cli/bin/cli.js')}").cli({ _: ["deploy"], yes: true, V: true })'`;
+  let args = [];
   try {
     pkgJson = JSON.parse(readFileSync(join(cwd, 'package.json')).toString());
   } catch (e) {}
@@ -21,6 +21,7 @@ const { exec } = require('@actions/exec');
     cmd = `npm run deploy`;
     args = [];
   }
+  
 
   console.log('Step 3: Exec Deploy');
   await exec(`${cmd}`, args, {
