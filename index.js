@@ -4,7 +4,7 @@ const { exec } = require('@actions/exec');
 const { execSync } = require('child_process');
 
 ;(async () => {
-  const cwd = join(process.env.GITHUB_WORKSPACE, '../');
+  const cwd = process.cwd();
   console.log('Step 1: Install Deps');
   await exec('npm i');
 
@@ -12,7 +12,7 @@ const { execSync } = require('child_process');
   await exec('npm i @midwayjs/cli');
 
   let pkgJson = {};
-  let cmd = `${join(process.cwd(), 'node_modules/@midwayjs/cli/bin/midway-bin.js')} deploy --yes -V`;
+  let cmd = `npx node deploy --yes -V`;
   let args = [];
   try {
     pkgJson = JSON.parse(readFileSync(join(cwd, 'package.json')).toString());
