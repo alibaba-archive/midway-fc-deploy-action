@@ -1,0 +1,13 @@
+{
+	"name": "midway-deploy-actiont",
+	"version": "1.0.0",
+	"description": "midway-deploy-action",
+	"main": "index.js",
+	"author": "echosoar <82163514@qq.com>",
+	"license": "MIT",
+	"private": true,
+	"dependencies": {
+		"@actions/core": "^1.2.6",
+		"@actions/exec": "^1.0.4"
+	}
+}
