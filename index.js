@@ -1,0 +1,1 @@
+console.log('env', JSON.stringify(process.env, null, 2));
