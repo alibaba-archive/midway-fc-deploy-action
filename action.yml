@@ -23,23 +23,3 @@ inputs:
 runs:
   using: 'node12'
   main: 'index.js'
-  # env:
-  #     SERVERLESS_DEPLOY_ID: ${{ inputs.id }}
-  #     SERVERLESS_DEPLOY_AK: ${{ inputs.ak }}
-  #     SERVERLESS_DEPLOY_SECRET: ${{ inputs.secret }}
-  #     SERVERLESS_DEPLOY_ENDPOINT: ${{ inputs.endpoint }}
-  #     SERVERLESS_DEPLOY_TIMEOUT: ${{ inputs.timeout }}
-  # using: "composite"
-  # steps:
-  #   - id: install-deps
-  #     shell: bash
-  #     run: npm i
-
-  #   - id: install-tools
-  #     shell: bash
-  #     run: npm i @midwayjs/cli
-
-  #   - id: deploy
-  #     shell: bash
-  #     run: npm run deploy || npx mw deploy --yes -V
-      
