@@ -27,11 +27,11 @@ runs:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
 
-    - id: install deps
+    - id: install-deps
       shell: bash
       run: npm i
 
-    - id: install tools
+    - id: install-tools
       shell: bash
       run: npm i @midwayjs/cli
 
