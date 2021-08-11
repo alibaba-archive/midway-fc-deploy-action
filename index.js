@@ -6,7 +6,8 @@ const { join } = require('path');
 
   const cwd = process.env.GITHUB_WORKSPACE;
   console.log('Step 1: Install Deps');
-  execSync(`cd ${cwd}; ls -al`);
+  const lsRes = execSync(`cd ${cwd}; ls -al`);
+  console.log(lsRes);
   execSync(`cd ${cwd}; npm i`);
 
   console.log('Step 2: Install Deploy Tools');
@@ -23,5 +24,6 @@ const { join } = require('path');
   }
 
   console.log('Step 3: Exec Deploy');
-  execSync(`cd ${cwd}; SERVERLESS_DEPLOY_ID=${process.env.INPUT_ID} SERVERLESS_DEPLOY_AK=${process.env.INPUT_AK} SERVERLESS_DEPLOY_SECRET=${process.env.INPUT_SECRET} SERVERLESS_DEPLOY_ENDPOINT=${process.env.INPUT_ENDPOINT || ''} SERVERLESS_DEPLOY_TIMEOUT=${process.env.INPUT_TIMEOUT || '1000'} ${cmd}`);
+  const deployRes = execSync(`cd ${cwd}; SERVERLESS_DEPLOY_ID=${process.env.INPUT_ID} SERVERLESS_DEPLOY_AK=${process.env.INPUT_AK} SERVERLESS_DEPLOY_SECRET=${process.env.INPUT_SECRET} SERVERLESS_DEPLOY_ENDPOINT=${process.env.INPUT_ENDPOINT || ''} SERVERLESS_DEPLOY_TIMEOUT=${process.env.INPUT_TIMEOUT || '1000'} ${cmd}`);
+  console.log(deployRes);
 })();
